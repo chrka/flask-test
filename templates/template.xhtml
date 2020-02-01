@@ -4,12 +4,38 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <title>Hello {{ method }}</title>
+    <title>Flask AJAX (Caching?) Test</title>
 </head>
 <body>
-<p>This was a {{ method }} request</p>
-<form action="/" method="POST">
-<input type="submit" value="POST"/>
-</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="application/javascript">
+</script>
+<div id="output">
+</div>
+<button id="get">GET</button>
+<button id="post">POST</button>
+<script type="application/javascript">
+    function updateOutput(rawOutput) {
+        $('#output').html(rawOutput)
+    }
+
+    $('#get').click(function() {
+        $.ajax({
+            url: "/endpoint",
+            method: 'GET',
+            dataType: 'html',
+            success: updateOutput
+        })
+    })
+
+    $('#post').click(function() {
+        $.ajax({
+            url: "/endpoint",
+            method: 'POST',
+            data: {},
+            dataType: 'html',
+            success: updateOutput
+        })
+    })
+</script>
 </body>
 </html>
